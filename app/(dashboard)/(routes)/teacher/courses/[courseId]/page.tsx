@@ -43,18 +43,20 @@ const CourseIdPage = async ({
           </span>
         </div>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-        <div className="flex items-center gap-x-2">
-          <IconBadge icon={LayoutDashboard} variant="default" size="sm" />
-          <h2 className="text-xl">
-            Customize your course.
-          </h2>
+			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+				<div>
+					<div className="flex items-center gap-x-2">
+						<IconBadge icon={LayoutDashboard} variant="default" size="sm" />
+						<h2 className="text-xl">
+							Customize your course.
+						</h2>
+					</div>
+					<TitleForm
+							initialData={course}
+							courseId={params.courseId}
+					/>
 				</div>
-				<TitleForm
-					initialData={course}
-					courseId={params.courseId}
-				/>
-      </div>
+				</div>
     </div>
   );
 }
