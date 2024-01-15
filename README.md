@@ -2,6 +2,29 @@
 $ npm i
 $ npm run dev
 
+- .env.local.templateをコピーして.envを作成する。
+
+## Clerkのセットアップ
+
+- [Clerk quickstart](https://clerk.com/docs/quickstarts/nextjs)を参照。
+``` .env
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY={clerkのダッシュボードで取得}
+CLERK_SECRET_KEY={clerkのダッシュボードで取得}
+```
+- middleware.tsをrootに作成する（[Clerkドキュメント](https://clerk.com/docs/quickstarts/nextjs)を参照）
+
+## PlanetScaleのセットアップ
+- [PlanetScaleのドキュメント](https://planetscale.com/docs)を参照
+
+``` .env
+...
+DATABASE_URL={planetscaleのダッシュボードで取得}
+```
+
 # Prismaの使い方
 
 ## テーブルの作成
