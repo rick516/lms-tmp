@@ -31,7 +31,6 @@ const CourseIdPage = async ({
   const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `(${completedFields}/${totalFields})`;
 
-
   return (
     <div className="p-6">
       <div className="flex items-center justify-between">
@@ -54,11 +53,11 @@ const CourseIdPage = async ({
 					</div>
 					<TitleForm
 							initialData={course}
-							courseId={params.courseId}
+							courseId={course.id}
 					/>
 					<DescriptionForm
 							initialData={course}
-							courseId={params.courseId}
+							courseId={course.id}
 					/>
 				</div>
 				</div>

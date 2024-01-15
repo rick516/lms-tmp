@@ -5,16 +5,16 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form, FormControl, FormField, FormItem, FormMessage, FormDescription } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Textarea } from "@/components/ui/textarea";
 
 interface DescriptionFormProps {
 	initialData: {
-		description: string;
+		description: string | null;
 	},
 	courseId: string;
 }
@@ -85,8 +85,8 @@ export const DescriptionForm = ({
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Input
-											placeholder="Course description"
+										<Textarea
+											placeholder="This course is about..."
 											disabled={isSubmitting}
 											{...field}
 										/>
