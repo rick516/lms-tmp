@@ -11,16 +11,15 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
+import { Course } from "@prisma/client";
 
 interface DescriptionFormProps {
-	initialData: {
-		description: string | null;
-	},
+	initialData: Course;
 	courseId: string;
 }
 
 const formSchema = z.object({
-	description: z.string().min(1, { message: "description is required" })
+	description: z.string().min(1, { message: "description is required" }).nullable()
 });
 
 export const DescriptionForm = ({
@@ -34,7 +33,9 @@ export const DescriptionForm = ({
 
 	const form = useForm({
 		resolver: zodResolver(formSchema),
-		defaultValues: initialData
+		defaultValues: { 
+			description: initialData?.description || ""
+		}
 	});
 
 	const { isSubmitting, isValid } = form.formState;
@@ -89,6 +90,7 @@ export const DescriptionForm = ({
 											placeholder="This course is about..."
 											disabled={isSubmitting}
 											{...field}
+											value={field.value || ""}
 										/>
 									</FormControl>
 									<FormDescription>

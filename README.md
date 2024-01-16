@@ -16,6 +16,16 @@ NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY={clerkのダッシュボードで取得}
 CLERK_SECRET_KEY={clerkのダッシュボードで取得}
 ```
 - middleware.tsをrootに作成する（[Clerkドキュメント](https://clerk.com/docs/quickstarts/nextjs)を参照）
+- publicRoutesに以下を追加しておく
+```
+export default authMiddleware({
+  publicRoutes: [
+    "/test",
+    "/api/uploadthing"
+  ],
+});
+ 
+```
 
 ## PlanetScaleのセットアップ
 - [PlanetScaleのドキュメント](https://planetscale.com/docs)を参照

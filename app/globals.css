@@ -85,3 +85,6 @@ body: このセレクタはHTMLドキュメントの<body>要素を指し、通�
     @apply bg-background text-foreground;
   }
 }
+
+/* @import "~@uploadthing/react/style.css"; */
+
