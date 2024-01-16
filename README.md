@@ -25,6 +25,10 @@ CLERK_SECRET_KEY={clerkのダッシュボードで取得}
 DATABASE_URL={planetscaleのダッシュボードで取得}
 ```
 
+# uploadthingの使い方
+- アカウント登録を行い、アプリを作成して環境変数をセットする
+- [公式ドキュメント](https://docs.uploadthing.com/getting-started/appdir#setting-up-your-environment)を参照
+
 # Prismaの使い方
 
 ## テーブルの作成
