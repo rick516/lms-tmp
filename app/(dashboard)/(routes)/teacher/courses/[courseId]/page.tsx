@@ -2,7 +2,7 @@ import { db } from "@/lib/db"
 import { auth } from "@clerk/nextjs"
 import { redirect } from "next/navigation"
 import { IconBadge } from "@/components/icon-badge"
-import { LayoutDashboard } from "lucide-react";
+import { LayoutDashboard, ListChecks, CircleDollarSign } from "lucide-react";
 import { TitleForm } from "./_components/title-form";
 import { DescriptionForm } from "./_components/description-form";
 import { ImageForm } from "./_components/image-form";
@@ -51,36 +51,57 @@ const CourseIdPage = async ({
           </span>
         </div>
       </div>
-			<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
-				<div>
-					<div className="flex items-center gap-x-2">
-						<IconBadge icon={LayoutDashboard} variant="default" size="sm" />
-						<h2 className="text-xl">
-							Customize your course.
-						</h2>
-					</div>
-					<TitleForm
-							initialData={course}
-							courseId={course.id}
-					/>
-					<DescriptionForm
-							initialData={course}
-							courseId={course.id}
-					/>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+        <div>
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={LayoutDashboard} variant="default" size="sm" />
+            <h2 className="text-xl">
+              Customize your course.
+            </h2>
+          </div>
+          <TitleForm
+            initialData={course}
+            courseId={course.id}
+          />
+          <DescriptionForm
+            initialData={course}
+            courseId={course.id}
+          />
           <ImageForm
-							initialData={course}
-							courseId={course.id}
-					/>
+            initialData={course}
+            courseId={course.id}
+          />
           <CategoryForm
-							initialData={course}
-							courseId={course.id}
-              options={categories.map((category) => ({
-                label: category.name,
-                value: category.id
-              }))}
-					/>
-				</div>
-				</div>
+            initialData={course}
+            courseId={course.id}
+            options={categories.map((category) => ({
+              label: category.name,
+              value: category.id
+            }))}
+          />
+        </div>
+        <div className="space-y-6">
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={ListChecks} variant="default" size="sm" />
+              <h2 className="text-m">
+                Course Chapters
+              </h2>
+            </div>
+            <div>
+              TODO: Chapters
+            </div>
+          </div>
+          <div>
+            <div className="flex items-cneter gap-x-2">
+              <IconBadge icon={CircleDollarSign} variant="default" size="sm" />
+              <h2 className="text-xl">
+                Sell your course
+              </h2>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
