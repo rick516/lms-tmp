@@ -26,7 +26,7 @@ export const ChaptersForm = ({
 }: ChaptersFormProps) => {
 	const router = useRouter()
 	const [isCreating, setIsCreating] = useState(false);
-	const [isUpdating, setIsUpdating] = useState(false);
+	// const [isUpdating, setIsUpdating] = useState(false);
 
 	const toggleCreating = () => setIsCreating((current) => !current);
 
@@ -41,7 +41,7 @@ export const ChaptersForm = ({
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			await axios.patch(`/api/courses/${courseId}/chapters`, values);
+			await axios.post(`/api/courses/${courseId}/chapters`, values);
 			toast.success("Course chapter created successfully");
 			toggleCreating();
 			router.refresh();
@@ -109,7 +109,7 @@ export const ChaptersForm = ({
 					)}>
 						{!initialData.chapters.length && "No chapters provided"}
 					</div>
-					<p>
+					<p className="text-xs mt-4 text-muted-foreground">
 						Drag and drop to reorder the chapters
 					</p>
 				</>

@@ -19,11 +19,11 @@ const CourseIdPage = async ({
   if (!userId) return redirect("/");
 
   const course = await db.course.findUnique({
-    where: { 
+    where: {
       id: params.courseId,
-      userId: userId 
+      userId: userId
     }
-    ,include: {
+    , include: {
       attachments: {
         orderBy: {
           createdAt: "desc"
@@ -31,7 +31,7 @@ const CourseIdPage = async ({
       },
       chapters: {
         orderBy: {
-          createdAt: "asc"
+          position: "asc"
         }
       }
     }
@@ -103,14 +103,15 @@ const CourseIdPage = async ({
           <div>
             <div className="flex items-center gap-x-2">
               <IconBadge icon={ListChecks} variant="default" size="sm" />
-              <h2 className="text-m">
+              <h2 className="text-xl">
                 Course Chapters
               </h2>
             </div>
-            <div>
-              TODO: Chapters
-            </div>
-            <div className="flex items-cneter gap-x-2">
+              <ChaptersForm
+                initialData={course}
+                courseId={course.id}
+              />
+            <div className="flex items-cneter gap-x-2 mt-6">
               <IconBadge icon={CircleDollarSign} variant="default" size="sm" />
               <h2 className="text-xl">
                 Sell your course
@@ -133,10 +134,6 @@ const CourseIdPage = async ({
               courseId={course.id}
             />
           </div>
-          <ChaptersForm
-            initialData={course}
-            courseId={course.id}
-          />
         </div>
       </div>
     </div>
