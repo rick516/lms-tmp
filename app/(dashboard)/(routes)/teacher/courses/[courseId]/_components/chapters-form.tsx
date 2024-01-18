@@ -27,7 +27,7 @@ export const ChaptersForm = ({
 }: ChaptersFormProps) => {
 	const router = useRouter()
 	const [isCreating, setIsCreating] = useState(false);
-	// const [isUpdating, setIsUpdating] = useState(false);
+	const [isUpdating, setIsUpdating] = useState(false);
 
 	const toggleCreating = () => setIsCreating((current) => !current);
 
@@ -50,6 +50,21 @@ export const ChaptersForm = ({
 			toast.error("Something went wrong. Please try again.");
 		}
 	};
+
+	const onReorder = async (updateData: { id: string, position: number }[]) => {
+		try {
+			setIsUpdating(true);
+			await axios.put(`/api/courses/${courseId}/chapters/reorder`, {
+				list: updateData
+			});
+			toast.success("Chapters reordered successfully");
+			router.refresh();
+		} catch {
+			toast.error("Something went wrong.")
+		} finally {
+			setIsUpdating(false);
+		}
+	}
 
 	return (
 		<div className="mt-6 border bg-slate-100 rounded-md p-4">
@@ -111,8 +126,8 @@ export const ChaptersForm = ({
 						{!initialData.chapters.length && "No chapters provided"}
 						<ChaptersList 
 							onEdit={() => {}}
-							onReorder={() => {}}
-							items={initialData.chapters || {}} />
+							onReorder={onReorder}
+							items={initialData.chapters || []} />
 					</div>
 					<p className="text-xs mt-4 text-muted-foreground">
 						Drag and drop to reorder the chapters
