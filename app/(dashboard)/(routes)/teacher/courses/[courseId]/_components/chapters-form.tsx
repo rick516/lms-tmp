@@ -28,6 +28,7 @@ export const ChaptersForm = ({
 	const router = useRouter()
 	const [isCreating, setIsCreating] = useState(false);
 	const [isUpdating, setIsUpdating] = useState(false);
+	const [chapters, setChapters] = useState<Chapter[]>(initialData.chapters || []);
 
 	const toggleCreating = () => setIsCreating((current) => !current);
 
@@ -42,10 +43,10 @@ export const ChaptersForm = ({
 
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
-			await axios.post(`/api/courses/${courseId}/chapters`, values);
+			const response = await axios.post(`/api/courses/${courseId}/chapters`, values);
 			toast.success("Course chapter created successfully");
 			toggleCreating();
-			router.refresh();
+			setChapters((prevChapters) => [...prevChapters, response.data]);
 		} catch {
 			toast.error("Something went wrong. Please try again.");
 		}
@@ -127,7 +128,7 @@ export const ChaptersForm = ({
 						<ChaptersList 
 							onEdit={() => {}}
 							onReorder={onReorder}
-							items={initialData.chapters || []} />
+							items={chapters || []} />
 					</div>
 					<p className="text-xs mt-4 text-muted-foreground">
 						Drag and drop to reorder the chapters
