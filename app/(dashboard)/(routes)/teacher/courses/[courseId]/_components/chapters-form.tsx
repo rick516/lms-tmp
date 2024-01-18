@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Course, Chapter } from "@prisma/client";
 import { cn } from "@/lib/utils";
+import { ChaptersList } from "./chapters-list";
 
 interface ChaptersFormProps {
 	initialData: Course & { chapters: Chapter[] };
@@ -108,6 +109,10 @@ export const ChaptersForm = ({
 						!initialData.chapters.length && "text-slate-500 italic"
 					)}>
 						{!initialData.chapters.length && "No chapters provided"}
+						<ChaptersList 
+							onEdit={() => {}}
+							onReorder={() => {}}
+							items={initialData.chapters || {}} />
 					</div>
 					<p className="text-xs mt-4 text-muted-foreground">
 						Drag and drop to reorder the chapters
