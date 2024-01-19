@@ -107,6 +107,7 @@ export const ChapterDescriptionForm = ({
 								type="button"
 								disabled={!isValid || isSubmitting}
 								variant="ghost"
+								onClick={toggleEdit}
 							>
 								Cancel
 							</Button>
