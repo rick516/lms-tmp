@@ -10,17 +10,18 @@ import { useState } from "react";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
 import { Chapter } from "@prisma/client";
+import { Preview } from "@/components/preview";
+import { Editor } from "@/components/editor";
 
 interface ChapterDescriptionFormProps {
-	initialData: Chapter
+	initialData: Chapter;
 	courseId: string;
 	chapterId: string;
 }
 
 const formSchema = z.object({
-	description: z.string().min(1, { message: "description is required" })
+	description: z.string().min(1),
 });
 
 export const ChapterDescriptionForm = ({
@@ -68,12 +69,16 @@ export const ChapterDescriptionForm = ({
 				</Button>
 			</div>
 			{!isEditing && (
-				<p className={cn(
+				<div className={cn(
 					"text-sm mt-2",
 					!initialData.description && "text-slate-500 italic"
 				)}>
-					{initialData.description || "No description provided"}
-				</p>
+					{initialData.description ? (
+						<Preview value={initialData.description} />
+					) : (
+						"No description provided"
+					)}
+				</div>
 			)}
 			{isEditing && (
 				<Form {...form}>
@@ -87,11 +92,8 @@ export const ChapterDescriptionForm = ({
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Textarea
-											placeholder="This chpater is about..."
-											disabled={isSubmitting}
+										<Editor
 											{...field}
-											value={field.value || ""}
 										/>
 									</FormControl>
 									<FormDescription>
@@ -103,7 +105,6 @@ export const ChapterDescriptionForm = ({
 						/>
 						<div className="flex items-center gap-x-2">
 							<Button
-								// onClick={toggleEdit}
 								type="button"
 								disabled={!isValid || isSubmitting}
 								variant="ghost"

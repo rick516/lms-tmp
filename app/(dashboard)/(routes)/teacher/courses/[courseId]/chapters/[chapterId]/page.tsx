@@ -60,7 +60,7 @@ const ChapterIdPage = async ({
       <div className="mt-6">
         <div className="flex items-center gap-x-2 mt-6">
           <IconBadge icon={LayoutDashboard} variant="default" size="sm" />
-          <h2 className="text-2xl">Customize your chapter.</h2>
+          <h2 className="text-2xl">Customize your chapter</h2>
         </div>
         <ChapterTitleForm
           initialData={chapter}

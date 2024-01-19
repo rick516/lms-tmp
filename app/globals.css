@@ -86,5 +86,9 @@ body: このセレクタはHTMLドキュメントの<body>要素を指し、通�
   }
 }
 
+.ql-container {
+  font-size: 16px !important;
+}
+
 /* @import "~@uploadthing/react/style.css"; */
 

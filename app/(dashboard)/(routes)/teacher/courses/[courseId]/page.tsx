@@ -75,7 +75,7 @@ const CourseIdPage = async ({
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} variant="default" size="sm" />
             <h2 className="text-xl">
-              Customize your course.
+              Customize your course
             </h2>
           </div>
           <TitleForm
