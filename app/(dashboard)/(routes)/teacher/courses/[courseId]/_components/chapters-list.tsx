@@ -6,6 +6,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea
 import { cn } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 import { Grip, Pencil } from "lucide-react";
+import Link from "next/link";
 
 interface ChaptersListProps {
   items: Chapter[];
@@ -90,9 +91,13 @@ export const ChaptersList = ({
                             )}>
                             {chapter.isPublished ? "Published" : "Draft"}
                           </Badge>
-                          <Pencil
-                            className="w-5 h-5 cursor-pointer hover:opacity-75 transition"
-                          />
+                          <Link 
+                            href={`/teacher/courses/${chapter.courseId}/chapters/${chapter.id}`}
+                          >
+                            <Pencil
+                              className="w-5 h-5 cursor-pointer hover:opacity-75 transition"
+                            />
+                          </Link>
                         </div>
                       </div>
                     </div>
