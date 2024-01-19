@@ -8,6 +8,7 @@ import { ChapterDescriptionForm } from "./_components/chapter-description-form"
 import { IconBadge } from "@/components/icon-badge"
 import { LayoutDashboard, Eye, Video } from "lucide-react";
 import { ChapterAccessForm } from "./_components/chapter-access-form"
+import { ChapterVideoForm } from "./_components/chapter-video-form"
 
 
 const ChapterIdPage = async ({
@@ -83,7 +84,7 @@ const ChapterIdPage = async ({
             />
             <div className="flex items-center gap-x-2 mt-6">
               <IconBadge icon={Eye} variant="default" size="sm" />
-              <h2 className="text-xl">Access Settings</h2>
+              <h2 className="text-2xl">Access Settings</h2>
             </div>
             <ChapterAccessForm
               initialData={chapter}
@@ -99,8 +100,13 @@ const ChapterIdPage = async ({
                   variant="default"
                   size="sm"
                 />
-                <h2 className="text-xl">Add a video</h2>
+                <h2 className="text-2xl">Add a video</h2>
               </div>
+              <ChapterVideoForm
+                initialData={chapter}
+                courseId={params.courseId}
+                chapterId={params.chapterId}
+              />
             </div>
           </div>
         </div>
