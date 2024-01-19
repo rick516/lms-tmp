@@ -14,7 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Chapter } from "@prisma/client";
 
 interface ChapterDescriptionFormProps {
-	initialData: Chapter;
+	initialData: Chapter
 	courseId: string;
 	chapterId: string;
 }
