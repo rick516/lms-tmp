@@ -11,19 +11,16 @@ import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Textarea } from "@/components/ui/textarea";
-import { MuxData } from "@prisma/client";
+import { Chapter } from "@prisma/client";
 
 interface ChapterDescriptionFormProps {
-	initialData: {
-		description: string;
-		muxData?: MuxData | null;
-	}
+	initialData: Chapter;
 	courseId: string;
 	chapterId: string;
 }
 
 const formSchema = z.object({
-	description: z.string().min(1, { message: "description is required" }).nullable()
+	description: z.string().min(1, { message: "description is required" })
 });
 
 export const ChapterDescriptionForm = ({
@@ -91,7 +88,7 @@ export const ChapterDescriptionForm = ({
 								<FormItem>
 									<FormControl>
 										<Textarea
-											placeholder="This course is about..."
+											placeholder="This chpater is about..."
 											disabled={isSubmitting}
 											{...field}
 											value={field.value || ""}
