@@ -59,7 +59,7 @@ export async function DELETE(
 				id: courseId,
 			},
 		});
-    
+
 		return new NextResponse("Course deleted successfully", { status: 200 });
 
 	} catch (error) {
@@ -75,14 +75,18 @@ export async function PATCH(
 	try {
 		const { userId } = await auth();
 		const { courseId } = params;
+    const values = await req.json()
 
 		if (!userId) return new NextResponse("Unauthorized", { status: 401 });
 
-		const course = await db.course.delete({
+		const course = await db.course.update({
 			where: {
 				id: courseId,
 				userId,
 			},
+      data: {
+        ...values
+      }
 		});
 
 		return NextResponse.json(course);

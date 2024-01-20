@@ -2,11 +2,13 @@ import { IconBadge } from "@/components/icon-badge";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import {
+	ArrowLeft,
 	CircleDollarSign,
 	File,
 	LayoutDashboard,
 	ListChecks,
 } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Actions } from "./_components/actions";
 import { AttachmentForm } from "./_components/attachment-form";
@@ -67,6 +69,17 @@ const CourseIdPage = async ({ params }: { params: { courseId: string } }) => {
 	return (
 		<div className="p-6">
 			<div className="flex items-center justify-between">
+				<div className="w-full">
+					<Link
+						href="/teacher/courses"
+						className="flex item-center text-sm hover:opacity-75 transition"
+					>
+						<ArrowLeft className="h-4 w-4 mr-2" />
+						Back to course setup
+					</Link>
+				</div>
+			</div>
+			<div className="flex items-center justify-between mt-4">
 				<div className="flex flex-col gap-y-2">
 					<h1 className="text-2xl font-medium">Course Setup</h1>
 					<span className="text-sm text-slate-700">

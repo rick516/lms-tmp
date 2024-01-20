@@ -1,17 +1,17 @@
 "use client";
-import * as z from "zod";
-import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FileUpload } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import { Pencil, PlusCircle, ImageIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { zodResolver } from "@hookform/resolvers/zod";
 // import { cn } from "@/lib/utils";
 import { Course } from "@prisma/client";
+import axios from "axios";
+import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 import Image from "next/image";
-import { FileUpload } from "@/components/file-upload";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
 interface ImageFormProps {
 	initialData: Course;
@@ -36,8 +36,6 @@ export const ImageForm = ({
 		defaultValues: { imageUrl: initialData?.imageUrl || "" }
 	});
 
-	const { isSubmitting, isValid } = form.formState;
-
 	const onSubmit = async (values: z.infer<typeof formSchema>) => {
 		try {
 			await axios.patch(`/api/courses/${courseId}`, values);
@@ -54,9 +52,7 @@ export const ImageForm = ({
 			<div className="font-medium flex items-center justify-between">
 				Course Image
 				<Button onClick={toggleEdit} variant="ghost">
-					{isEditing && (
-						<>Cancel</>
-					)}
+					{isEditing && "Cancel"}
 					{!isEditing && !initialData?.imageUrl && (
 						<>
 							<PlusCircle className="w-4 h-4 mr-2" />

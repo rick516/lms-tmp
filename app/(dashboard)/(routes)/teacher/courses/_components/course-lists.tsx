@@ -16,180 +16,53 @@ interface CourseListsProps {
 	courses: Course[];
 }
 
-export const CourseLists = ({ courses }: CourseListsProps) => {
+export const CourseLists = ({ courses = []}: CourseListsProps) => {
 	return (
 		<div>
-			<header className="flex h-14 items-center border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
-				<Link className="flex items-center gap-2 font-semibold" href="#">
-					<Package2Icon className="h-6 w-6" />
-					<span className="">Acme Inc</span>
-				</Link>
-				<div className="w-full flex-1">
-					<form>
-						<div className="relative">
-							<SearchIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-gray-500 dark:text-gray-400" />
-							<Input
-								className="w-full bg-white shadow-none appearance-none pl-8 md:w-2/3 lg:w-1/3 dark:bg-gray-950"
-								placeholder="Search courses..."
-								type="search"
-							/>
-						</div>
-					</form>
-				</div>
-				<DropdownMenu>
-					<DropdownMenuTrigger asChild>
-						<Button
-							className="rounded-full border border-gray-200 w-8 h-8 dark:border-gray-800"
-							size="icon"
-							variant="ghost"
-						>
-							<img
-								alt="Avatar"
-								className="rounded-full"
-								height="32"
-								src="/placeholder.svg"
-								style={{
-									aspectRatio: "32/32",
-									objectFit: "cover",
-								}}
-								width="32"
-							/>
-							<span className="sr-only">Toggle user menu</span>
-						</Button>
-					</DropdownMenuTrigger>
-					<DropdownMenuContent align="end">
-						<DropdownMenuLabel>My Account</DropdownMenuLabel>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>Settings</DropdownMenuItem>
-						<DropdownMenuItem>Support</DropdownMenuItem>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem>Logout</DropdownMenuItem>
-					</DropdownMenuContent>
-				</DropdownMenu>
-			</header>
 			<main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
 				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-					<Card>
-						<CardContent className="flex flex-col gap-2">
-							<img
-								alt="Course 1"
-								className="object-cover w-full h-60"
-								height={300}
-								src="/placeholder.svg"
-								style={{
-									aspectRatio: "400/300",
-									objectFit: "cover",
-								}}
-								width={400}
-							/>
-							<h3 className="font-semibold text-lg md:text-xl">Course 1</h3>
-							<p className="text-sm text-gray-500 dark:text-gray-400">
-								Instructor Name
-							</p>
-							<div className="flex items-center gap-2">
-								<div className="flex items-center gap-0.5">
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-								</div>
-							</div>
-							<h4 className="font-semibold text-base md:text-lg">$99.99</h4>
-						</CardContent>
-					</Card>
-					<Card>
-						<CardContent className="flex flex-col gap-2">
-							<img
-								alt="Course 2"
-								className="object-cover w-full h-60"
-								height={300}
-								src="/placeholder.svg"
-								style={{
-									aspectRatio: "400/300",
-									objectFit: "cover",
-								}}
-								width={400}
-							/>
-							<h3 className="font-semibold text-lg md:text-xl">Course 2</h3>
-							<p className="text-sm text-gray-500 dark:text-gray-400">
-								Instructor Name
-							</p>
-							<div className="flex items-center gap-2">
-								<div className="flex items-center gap-0.5">
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-								</div>
-							</div>
-							<h4 className="font-semibold text-base md:text-lg">$99.99</h4>
-						</CardContent>
-					</Card>
-					<Card>
-						<CardContent className="flex flex-col gap-2">
-							<img
-								alt="Course 3"
-								className="object-cover w-full h-60"
-								height={300}
-								src="/placeholder.svg"
-								style={{
-									aspectRatio: "400/300",
-									objectFit: "cover",
-								}}
-								width={400}
-							/>
-							<h3 className="font-semibold text-lg md:text-xl">Course 3</h3>
-							<p className="text-sm text-gray-500 dark:text-gray-400">
-								Instructor Name
-							</p>
-							<div className="flex items-center gap-2">
-								<div className="flex items-center gap-0.5">
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-								</div>
-							</div>
-							<h4 className="font-semibold text-base md:text-lg">$99.99</h4>
-						</CardContent>
-					</Card>
-					<Card>
-						<CardContent className="flex flex-col gap-2">
-							<img
-								alt="Course 4"
-								className="object-cover w-full h-60"
-								height={300}
-								src="/placeholder.svg"
-								style={{
-									aspectRatio: "400/300",
-									objectFit: "cover",
-								}}
-								width={400}
-							/>
-							<h3 className="font-semibold text-lg md:text-xl">Course 4</h3>
-							<p className="text-sm text-gray-500 dark:text-gray-400">
-								Instructor Name
-							</p>
-							<div className="flex items-center gap-2">
-								<div className="flex items-center gap-0.5">
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-primary" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-									<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-								</div>
-							</div>
-							<h4 className="font-semibold text-base md:text-lg">$99.99</h4>
-						</CardContent>
-					</Card>
+					{courses.map((course) => (
+						<Link href={`/teacher/courses/${course.id}`}>
+							<Card key={course.id}>
+								<CardContent className="flex flex-col gap-2">
+									<img
+										alt={course.title}
+										className="object-cover w-full h-60"
+										height={300}
+										src={course.imageUrl || "/placeholder.svg"}
+										style={{
+											aspectRatio: "400/300",
+											objectFit: "cover",
+										}}
+										width={400}
+									/>
+									<h3 className="font-semibold text-lg md:text-xl">
+										{course.title}
+									</h3>
+									<p className="text-sm text-gray-500 dark:text-gray-400">
+										{course.description}
+									</p>
+									<div className="flex items-center gap-2">
+										<div className="flex items-center gap-0.5">
+											<StarIcon className="w-5 h-5 fill-primary" />
+											<StarIcon className="w-5 h-5 fill-primary" />
+											<StarIcon className="w-5 h-5 fill-primary" />
+											<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+											<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+										</div>
+									</div>
+									<h4 className="font-semibold text-base md:text-lg">
+										${course.price}
+									</h4>
+								</CardContent>
+							</Card>
+						</Link>
+					))}
 				</div>
 			</main>
 		</div>
 	);
-}
+};
 
 function Package2Icon(props: React.SVGProps<SVGSVGElement>) {
 	return (
