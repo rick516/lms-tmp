@@ -1,14 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { Course } from "@prisma/client";
 import Link from "next/link";
 
@@ -16,7 +8,7 @@ interface CourseListsProps {
 	courses: Course[];
 }
 
-export const CourseLists = ({ courses = []}: CourseListsProps) => {
+export const CourseLists = ({ courses = [] }: CourseListsProps) => {
 	return (
 		<div>
 			<main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
@@ -51,9 +43,19 @@ export const CourseLists = ({ courses = []}: CourseListsProps) => {
 											<StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
 										</div>
 									</div>
-									<h4 className="font-semibold text-base md:text-lg">
-										${course.price}
-									</h4>
+									<div className="flex items-center- justify-between">
+										<h4 className="font-semibold text-base md:text-lg">
+											${course.price}
+										</h4>
+										<Badge
+											className={cn(
+												"bg-slate-500",
+												course.isPublished && "text-white bg-sky-700",
+											)}
+										>
+											{course.isPublished ? "Published" : "Draft"}
+										</Badge>
+									</div>
 								</CardContent>
 							</Card>
 						</Link>
