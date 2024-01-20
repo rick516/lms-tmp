@@ -3,7 +3,6 @@ import { FileUpload } from "@/components/file-upload";
 import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import MuxPlayer from "@mux/mux-player-react";
-// import { cn } from "@/lib/utils";
 import { Chapter, MuxData } from "@prisma/client";
 import axios from "axios";
 import { Pencil, PlusCircle, Video } from "lucide-react";
@@ -57,7 +56,7 @@ export const ChapterVideoForm = ({
 			<div className="font-medium flex items-center justify-between">
 				Chapter Video
 				<Button onClick={toggleEdit} variant="ghost">
-					{isEditing && <>Cancel</>}
+					{isEditing && "Cancel"}
 					{!isEditing && !initialData?.videoUrl && (
 						<>
 							<PlusCircle className="w-4 h-4 mr-2" />
