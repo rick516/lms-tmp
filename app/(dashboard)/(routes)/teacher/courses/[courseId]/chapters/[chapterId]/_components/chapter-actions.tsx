@@ -33,6 +33,8 @@ export const ChapterActions = ({
 			router.push(`/teacher/courses/${courseId}`);
 		} catch {
 			toast.error("Something went wrong.");
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
