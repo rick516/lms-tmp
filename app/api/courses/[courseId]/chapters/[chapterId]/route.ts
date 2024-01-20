@@ -101,6 +101,9 @@ export async function PATCH(
 		const { courseId, chapterId } = params;
 		const values = await req.json();
 
+		console.log("values");
+		console.log(values);
+
 		const chapter = await db.chapter.update({
 			where: {
 				id: chapterId,

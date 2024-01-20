@@ -36,16 +36,24 @@ export const ChapterActions = ({
 		}
 	};
 
-	const onPublish = async () => {
+	const onClick = async () => {
 		try {
 			setIsLoading(true);
+
 			await axios.patch(`/api/courses/${courseId}/chapters/${chapterId}`, {
 				isPublished: !isPublished,
 			});
-			toast.success("Chapter published successfully");
+
+			toast.success(
+				`Chapter publish status changed to: ${
+					isPublished === true ? "Published" : "Unpublished"
+				}`,
+			);
 			router.refresh();
+			setIsLoading(false);
 		} catch {
 			toast.error("Something went wrong.");
+			setIsLoading(false);
 		}
 	};
 
@@ -55,7 +63,7 @@ export const ChapterActions = ({
 				variant="outline"
 				size="sm"
 				disabled={disabled || isLoading}
-				onClick={onPublish}
+				onClick={onClick}
 			>
 				{isPublished ? "Unpublish" : "Publish"}
 			</Button>
