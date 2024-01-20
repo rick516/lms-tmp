@@ -1,5 +1,6 @@
 "use client";
 
+import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -58,14 +59,16 @@ export const Actions = ({ courseId, isPublished, disabled }: ActionsProps) => {
 			>
 				{isPublished ? "Unpublish" : "Publish"}
 			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onClick={onDelete}
-				disabled={disabled || isLoading}
-			>
-				<Trash className="h-4 w-4" />
-			</Button>
+			<ConfirmModal onConfirm={() => {}}>
+				<Button
+					variant="outline"
+					size="sm"
+					onClick={onDelete}
+					disabled={disabled || isLoading}
+				>
+					<Trash className="h-4 w-4" />
+				</Button>
+			</ConfirmModal>
 		</div>
 	);
 };
