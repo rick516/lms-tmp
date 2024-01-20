@@ -64,7 +64,7 @@ export const Actions = ({ courseId, isPublished, disabled }: ActionsProps) => {
 					variant="outline"
 					size="sm"
 					onClick={onDelete}
-					disabled={disabled || isLoading}
+					disabled={isLoading}
 				>
 					<Trash className="h-4 w-4" />
 				</Button>
