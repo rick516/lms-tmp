@@ -7,17 +7,17 @@ async function main() {
     await db.category.createMany({
       data: [
         { name: "Math" },
-        { name: "Science" },
-        { name: "History" },
-        { name: "English" },
-        { name: "Art" },
+        { name: "Computer Science" },
+        { name: "Accounting" },
         { name: "Music" },
-        { name: "PE" },
+        { name: "Engineering" },
+        { name: "Photography" },
+        { name: "Film" },
       ],
     })
     console.log("Seeded categories successfully.");
   } catch (error) {
-    console.log("FATAL: " + JSON.stringify(error));
+    console.log(`FATAL: ${JSON.stringify(error)}`);
   } finally {
     await db.$disconnect();
   }
