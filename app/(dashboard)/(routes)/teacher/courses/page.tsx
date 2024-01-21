@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { columns } from "./_components/columns";
 import { CourseLists } from "./_components/course-lists";
@@ -23,11 +21,6 @@ const CoursesPage = async () => {
 
 	return (
 		<div>
-			<div className="p-6">
-				<Link href="/teacher/create">
-					<Button>New Courses</Button>
-				</Link>
-			</div>
 			<div className="mt-16 p-6">
 				<DataTable columns={columns} data={courses} />
 			</div>

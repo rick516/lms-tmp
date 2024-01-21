@@ -2,11 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+	DropdownMenu,
+	DropdownMenuCheckboxItem,
+	DropdownMenuContent,
+	DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
 	Table,
@@ -20,7 +20,6 @@ import {
 	ColumnDef,
 	ColumnFiltersState,
 	SortingState,
-	VisibilityState,
 	flexRender,
 	getCoreRowModel,
 	getFilteredRowModel,
@@ -28,6 +27,7 @@ import {
 	getSortedRowModel,
 	useReactTable,
 } from "@tanstack/react-table";
+import Link from "next/link";
 import * as React from "react";
 
 interface DataTableProps<TData, TValue> {
@@ -61,7 +61,7 @@ export function DataTable<TData, TValue>({
 
 	return (
 		<div>
-			<div className="flex items-center py-4">
+			<div className="flex items-center justify-between gap-x-6 mb-2">
 				<Input
 					placeholder="Filter title..."
 					value={(table.getColumn("title")?.getFilterValue() as string) ?? ""}
@@ -70,34 +70,35 @@ export function DataTable<TData, TValue>({
 					}
 					className="max-w-sm"
 				/>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" className="ml-auto">
-              Columns
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {table
-              .getAllColumns()
-              .filter(
-                (column) => column.getCanHide()
-              )
-              .map((column) => {
-                return (
-                  <DropdownMenuCheckboxItem
-                    key={column.id}
-                    className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
-                  >
-                    {column.id}
-                  </DropdownMenuCheckboxItem>
-                )
-              })}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link href="/teacher/create">
+          <Button>New Courses</Button>
+        </Link>
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant="outline" className="ml-auto">
+							Columns
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent align="end">
+						{table
+							.getAllColumns()
+							.filter((column) => column.getCanHide())
+							.map((column) => {
+								return (
+									<DropdownMenuCheckboxItem
+										key={column.id}
+										className="capitalize"
+										checked={column.getIsVisible()}
+										onCheckedChange={(value) =>
+											column.toggleVisibility(!!value)
+										}
+									>
+										{column.id}
+									</DropdownMenuCheckboxItem>
+								);
+							})}
+					</DropdownMenuContent>
+				</DropdownMenu>
 			</div>
 			<div className="rounded-md border">
 				<Table>
