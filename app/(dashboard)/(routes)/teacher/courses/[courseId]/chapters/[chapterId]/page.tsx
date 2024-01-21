@@ -69,6 +69,7 @@ const ChapterIdPage = async ({
 							courseId={params.courseId}
 							chapterId={params.chapterId}
 							isPublished={chapter.isPublished}
+							isComplete={isComplete}
 						/>
 					</div>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">

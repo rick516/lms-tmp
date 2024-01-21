@@ -2,6 +2,7 @@
 
 import { ConfirmModal } from "@/components/modals/confirm-modal";
 import { Button } from "@/components/ui/button";
+import { useConfettiStore } from "@/hooks/use-confetti-store";
 import axios from "axios";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -16,6 +17,7 @@ interface ActionsProps {
 export const Actions = ({ courseId, isPublished, disabled }: ActionsProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const router = useRouter();
+	const confetti = useConfettiStore();
 
 	const onClick = async () => {
 		try {
@@ -23,11 +25,12 @@ export const Actions = ({ courseId, isPublished, disabled }: ActionsProps) => {
 
 			if (!isPublished) {
 				await axios.patch(`/api/courses/${courseId}/publish`);
+				toast.success("Course published successfully");
+				confetti.onOpen();
 			} else {
 				await axios.patch(`/api/courses/${courseId}/unpublish`);
+				toast.success("Course unpublished successfully");
 			}
-
-			toast.success("Course published successfully");
 			router.refresh();
 		} catch {
 			toast.error("An error occurred while publishing the course");
