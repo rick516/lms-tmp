@@ -58,5 +58,3 @@ $ npx prisma studio
 
 ## シーディング
 $ npx prisma db seed　{seed file path}
-
-
