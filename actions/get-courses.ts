@@ -11,7 +11,7 @@ type CourseWithProgressWithCategory = Course & {
 type GetCourses = {
 	userId: string;
 	title?: string;
-	categoryId?: string;
+	categoryId: string;
 };
 
 export const getCourses = async ({

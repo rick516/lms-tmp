@@ -11,7 +11,7 @@ interface CourseCardProps {
 	imageUrl: string | null;
 	price: number;
 	progress: number | null;
-	category: string | null;
+	category?: string | null;
 }
 
 export const CourseCard = ({
@@ -38,21 +38,22 @@ export const CourseCard = ({
 					<div className="text-lg md:text-base font-medium group-hover:text-sky-700 transition line-clamp-2">
 						{title}
 					</div>
-					<p className="text-xs text-muted-foreground">   {category}
-          </p>
-          <div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
-            <div className="flex items-center gap-x-1 text-slate-500">
-              <IconBadge variant="default" size="sm" icon={BookOpen} />
-              <span>
-                {chapterLength} {chapterLength === 1 ? "Chapter" : "Chapters"}
-              </span>
-            </div>
-          </div>
-          {progress !== null ? (
-            <div>TODO: Progress Component</div>
-          ) : (
-            <p className="text-md md:text-sm font-medium text-slate-700">{formatPrice(price)}</p>
-          )}
+					<p className="text-xs text-muted-foreground"> {category}</p>
+					<div className="my-3 flex items-center gap-x-2 text-sm md:text-xs">
+						<div className="flex items-center gap-x-1 text-slate-500">
+							<IconBadge variant="default" size="sm" icon={BookOpen} />
+							<span>
+								{chapterLength} {chapterLength === 1 ? "Chapter" : "Chapters"}
+							</span>
+						</div>
+					</div>
+					{progress !== null ? (
+						<div>TODO: Progress Component</div>
+					) : (
+						<p className="text-md md:text-sm font-medium text-slate-700">
+							{formatPrice(price)}
+						</p>
+					)}
 				</div>
 			</div>
 		</Link>
