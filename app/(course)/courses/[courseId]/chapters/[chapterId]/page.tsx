@@ -2,7 +2,7 @@ import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
+import { VideoPlayer } from "./_components/video-player";
 
 const ChapterIdPage = async ({
 	params,
@@ -48,6 +48,17 @@ const ChapterIdPage = async ({
 					label="you must purchase this course to access this chapter."
 				/>
 			)}
+			<div>
+				<VideoPlayer
+					chapterId={chapter.id}
+					playbackId={muxData?.playbackId!}
+					courseId={params.courseId}
+					nextChapterId={nextChapter?.id}
+					title={chapter.title!}
+					isLocked={isLocked}
+					isCompletedOnEnd={isCompletedOnEnd}
+				/>
+			</div>
 		</div>
 	);
 };
