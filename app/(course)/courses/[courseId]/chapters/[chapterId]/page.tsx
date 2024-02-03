@@ -2,6 +2,7 @@ import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { VideoPlayer } from "./_components/video-player";
 
 const ChapterIdPage = async ({
@@ -48,16 +49,33 @@ const ChapterIdPage = async ({
 					label="you must purchase this course to access this chapter."
 				/>
 			)}
-			<div>
-				<VideoPlayer
-					chapterId={chapter.id}
-					playbackId={muxData?.playbackId!}
-					courseId={params.courseId}
-					nextChapterId={nextChapter?.id}
-					title={chapter.title!}
-					isLocked={isLocked}
-					isCompletedOnEnd={isCompletedOnEnd}
-				/>
+			<div className="flex flex-col max-w-4xl mx-auto pb-20">
+				<div className="p-4">
+					<VideoPlayer
+						chapterId={chapter.id}
+						playbackId={muxData?.playbackId}
+						courseId={params.courseId}
+						nextChapterId={nextChapter?.id}
+						title={chapter.title}
+						isLocked={isLocked}
+						isCompletedOnEnd={isCompletedOnEnd}
+					/>
+				</div>
+				<div>
+					<div className="flex items-center justify-between md:flex-row flex-col p-4">
+						<h2 className="text-2xl font-semibold mb-2">
+							{chapter.title}
+						</h2>
+						{purchase ? (
+							<div>course progress</div>
+						) : (
+							<CourseEnrollButton
+								price={course.price}
+								courseId={course.id}
+							/>	
+						)}
+					</div>
+				</div>
 			</div>
 		</div>
 	);

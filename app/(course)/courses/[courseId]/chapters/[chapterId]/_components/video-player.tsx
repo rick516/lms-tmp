@@ -13,7 +13,7 @@ interface VideoPlayerProps {
   nextChapterId?: string;
   playbackId: string;
   isLocked: boolean;
-  isCompoletedOnEnd: boolean;
+  isCompletedOnEnd: boolean;
 }
 
 export const VideoPlayer = ({
@@ -23,7 +23,7 @@ export const VideoPlayer = ({
   title,
   playbackId,
   isLocked,
-  isCompoletedOnEnd,
+  isCompletedOnEnd,
 }: VideoPlayerProps) => {
 
   const [isReady, setIsReady] = useState(false);
