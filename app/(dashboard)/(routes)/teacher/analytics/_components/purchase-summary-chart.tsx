@@ -1,6 +1,11 @@
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-export const PurchasesSummaryChart = ({ data }) => {
+interface CoursePurchaseSummary {
+  courseId: string;
+  purchases: number;
+}
+
+export const PurchasesSummaryChart = ({ data }: { data: CoursePurchaseSummary[] }) => {
   return (
     <BarChart width={600} height={300} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
