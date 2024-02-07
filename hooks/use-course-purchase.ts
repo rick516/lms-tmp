@@ -1,5 +1,3 @@
-
-// hooks/use-course-purchase.ts
 import { useEffect, useState } from 'react';
 
 interface CoursePurchaseSummary {
@@ -7,23 +5,23 @@ interface CoursePurchaseSummary {
   purchases: number;
 }
 
-export const useCoursePurchasesSummary = () => {
+export const useCoursePurchasesSummary = (courseId: string) => {
   const [data, setData] = useState<CoursePurchaseSummary[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // APIから購入データをフェッチする
-        const response = await fetch('/api/purchases/summary');
+        const response = await fetch(`/api/purchases/summary/${courseId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
         const purchasesSummary = await response.json();
 
         // データを加工してセットする
-        const processedData = purchasesSummary.map((item: any) => ({
+        const processedData = purchasesSummary.map((item: { courseId: string; sum: number; }) => ({
           courseId: item.courseId,
-          purchases: item.sum // 仮にsumプロパティに購入数の合計が格納されているとする
+          purchases: item.sum
         }));
 
         setData(processedData);
@@ -33,8 +31,10 @@ export const useCoursePurchasesSummary = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (courseId) {
+      fetchData();
+    }
+  }, [courseId]);
 
   return data;
 };
