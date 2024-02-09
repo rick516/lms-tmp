@@ -12,7 +12,6 @@ export const Preview = ({ value }: PreviewProps) => {
   // to avoid hydration error by importin without server side rendering
   const ReactQuill = useMemo(() => dynamic(import("react-quill"), { 
     ssr: false,
-    loading: () => <p>Loading...</p>,
   }), []);
 
   return (

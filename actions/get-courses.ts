@@ -4,7 +4,7 @@ import { Category, Course, Purchase } from "@prisma/client";
 
 type CourseWithProgressWithCategory = Course & {
 	chapters: { id: string }[];
-	catetgory: Category | null;
+	category: Category | null;
 	progress: number | null;
 };
 
@@ -55,6 +55,10 @@ export const getCourses = async ({
 						};
 					}
 					const progressPercentage = await getProgress(userId, course.id);
+					return {
+						...course,
+						progress: progressPercentage,
+					};
 				}),
 			);
 

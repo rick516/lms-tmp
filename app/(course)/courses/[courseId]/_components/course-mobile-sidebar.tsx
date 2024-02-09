@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 interface CourseMobileSidebarProps {
 	course: Course & {
 		chapters: (Chapter & {
-			userProgress: UserProgress;
+			userProgress: UserProgress[] | null;
 		})[];
 	};
 	progressCount: number;

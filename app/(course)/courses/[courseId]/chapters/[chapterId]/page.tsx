@@ -57,7 +57,7 @@ const ChapterIdPage = async ({
 				<div className="p-4">
 					<VideoPlayer
 						chapterId={chapter.id}
-						playbackId={muxData.playbackId}
+						playbackId={muxData?.playbackId || ""}
 						courseId={params.courseId}
 						nextChapterId={nextChapter?.id}
 						title={chapter.title}
@@ -81,9 +81,9 @@ const ChapterIdPage = async ({
 					</div>
 					<Separator />
 					<div>
-						{/* TODO: なんかreact-quill ssr:falseにしてもuseMemotサーバー側で実行しやがる */}
-						{/* <Preview value={chapter.description || "description is none."}/> */}
-						{chapter.description}
+						{/* TODO: なんかreact-quill ssr:falseにしてもuseMemo使ってもサーバー側で実行しやがる */}
+						<Preview value={chapter.description || "description is none."}/>
+						{/* {chapter.description} */}
 					</div>
 					{!!attachments.length && (
 						<>

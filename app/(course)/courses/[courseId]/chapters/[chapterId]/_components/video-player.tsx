@@ -11,7 +11,7 @@ interface VideoPlayerProps {
   title: string;
   courseId: string;
   nextChapterId?: string;
-  playbackId: string;
+  playbackId: string | "";
   isLocked: boolean;
   isCompletedOnEnd: boolean;
 }

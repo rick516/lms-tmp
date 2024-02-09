@@ -9,7 +9,7 @@ interface CourseCardProps {
 	title: string;
 	chapterLength: number;
 	imageUrl: string | null;
-	price: number;
+	price: number | null;
 	progress: number | null;
 	category?: string | null;
 }
@@ -51,7 +51,7 @@ export const CourseCard = ({
 						<div>TODO: Progress Component</div>
 					) : (
 						<p className="text-md md:text-sm font-medium text-slate-700">
-							{formatPrice(price)}
+							{price ? formatPrice(price) : "Free"}
 						</p>
 					)}
 				</div>
