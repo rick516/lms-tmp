@@ -119,6 +119,9 @@ export async function PATCH(
 				},
 			});
 
+			console.log("existMuxDataData");
+			console.log(existingMuxData);
+
 			if (existingMuxData) {
 				await Video.Assets.del(existingMuxData.assetId);
 				await db.muxData.delete({
@@ -133,6 +136,9 @@ export async function PATCH(
 				playback_policy: "public",
 				test: false,
 			});
+
+			console.log("asset");
+			console.log(asset);
 
 			await db.muxData.create({
 				data: {

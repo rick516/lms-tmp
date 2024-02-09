@@ -1,6 +1,9 @@
 import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
+import { Preview } from "@/components/preview";
+import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
+import { File } from "lucide-react"
 import { redirect } from "next/navigation";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { VideoPlayer } from "./_components/video-player";
@@ -30,7 +33,8 @@ const ChapterIdPage = async ({
 		chapterId: params.chapterId,
 	});
 
-	if (!chapter || !course) return redirect("/");
+	if (!chapter || !course.price) return redirect("/");
+	if (!muxData) return redirect("/");
 
 	const isLocked = !chapter.isFree && !purchase;
 	const isCompletedOnEnd = !!purchase && !userProgress?.isCompleted;
@@ -53,7 +57,7 @@ const ChapterIdPage = async ({
 				<div className="p-4">
 					<VideoPlayer
 						chapterId={chapter.id}
-						playbackId={muxData?.playbackId!}
+						playbackId={muxData.playbackId}
 						courseId={params.courseId}
 						nextChapterId={nextChapter?.id}
 						title={chapter.title}
@@ -71,10 +75,37 @@ const ChapterIdPage = async ({
 						) : (
 							<CourseEnrollButton
 								price={course.price}
-								courseId={course.id}
+								courseId={params.courseId}
 							/>	
 						)}
 					</div>
+					<Separator />
+					<div>
+						{/* TODO: なんかreact-quill ssr:falseにしてもuseMemotサーバー側で実行しやがる */}
+						{/* <Preview value={chapter.description || "description is none."}/> */}
+						{chapter.description}
+					</div>
+					{!!attachments.length && (
+						<>
+							<Separator />
+							<div className="p-4">
+								{attachments.map((attachment) => (
+									<a 
+										href={attachment.url} 
+										target="_blank" 
+										rel="noreferrer" 
+										key={attachment.id}
+										className="flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md ghover:underline"
+									>
+										<File size="sm" />
+										<p>
+											{attachment.name}
+										</p>
+									</a>
+								))}
+							</div>
+						</>
+					)}
 				</div>
 			</div>
 		</div>
