@@ -1,4 +1,4 @@
-"user client";
+"use client";
 
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
@@ -9,7 +9,7 @@ interface PreviewProps {
 }
 
 export const Preview = ({ value }: PreviewProps) => {
-  // to avoid hydration error by importin without server side rendering
+  // to avoid hydration error by importing without server side rendering
   const ReactQuill = useMemo(() => dynamic(import("react-quill"), { 
     ssr: false,
   }), []);

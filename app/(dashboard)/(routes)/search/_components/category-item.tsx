@@ -6,14 +6,14 @@ import qs from "query-string";
 import { IconType as Icon } from "react-icons";
 
 interface CategoryItemProps {
-	key: string;
+	itemKey: string;
 	label: string;
 	icon?: Icon;
 	value?: string;
 }
 
 export const CategoryItem = ({
-	key,
+	itemKey,
 	label,
 	icon,
 	value,

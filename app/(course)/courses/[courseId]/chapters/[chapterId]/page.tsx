@@ -81,9 +81,7 @@ const ChapterIdPage = async ({
 					</div>
 					<Separator />
 					<div>
-						{/* TODO: なんかreact-quill ssr:falseにしてもuseMemo使ってもサーバー側で実行しやがる */}
-						<Preview value={chapter.description || "description is none."}/>
-						{/* {chapter.description} */}
+						<Preview value={chapter.description || "description is none."	}/>
 					</div>
 					{!!attachments.length && (
 						<>
