@@ -18,6 +18,11 @@ const ChapterIdPage = async ({
 }) => {
 	const { userId } = auth();
 	if (!userId) return redirect("/");
+	const courseId = params.courseId;
+	const chapterId = params.chapterId;
+
+	console.log("courseId in page:", courseId);
+	console.log("chapterId in page:", chapterId);
 
 	const {
 		course,
@@ -29,9 +34,11 @@ const ChapterIdPage = async ({
 		muxData,
 	} = await getChapter({
 		userId,
-		courseId: params.courseId,
-		chapterId: params.chapterId,
+		courseId: courseId,
+		chapterId: chapterId,
 	});
+
+	console.log("chapter id page params:", params);
 
 	if (!chapter || !chapter.description || !course.price) return redirect("/");
 	if (!muxData) return redirect("/");

@@ -1,15 +1,15 @@
-import { NextResponse } from "next/server";
-import { currentUser } from "@clerk/nextjs";
 import { db } from "@/lib/db";
-import Stripe from "stripe";
 import { stripe } from "@/lib/stripe";
+import { currentUser } from "@clerk/nextjs";
+import { NextResponse } from "next/server";
+import Stripe from "stripe";
 
 export async function POST(
   req: Request,
   { params }: { params: { courseId: string }}
 ) {
   try {
-    const user = await await currentUser();
+    const user = await currentUser();
     if (!user || !user.id || !user.emailAddresses?.[0]?.emailAddress) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
@@ -21,7 +21,7 @@ export async function POST(
       },
     });
 
-    if (!course) return new NextResponse("Course Not Found", { status: 401 })
+    if (!course || !course.description || !course.price) return new NextResponse("Course Not Found", { status: 401 })
 
     const purchase = await db.purchase.findUnique({
       where: {
@@ -41,9 +41,9 @@ export async function POST(
           currency: "USD",
           product_data: {
             name: course.title,
-            description: course.description!,
+            description: course.description,
           },
-          unit_amount: Math.round(course.price! * 100),
+          unit_amount: Math.round(course.price * 100),
         },
       },
     ];

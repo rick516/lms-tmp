@@ -39,20 +39,22 @@ export const getChapter = async ({
 			},
 		});
 
+		console.log("chapter id");
+		console.log(chapterId);
+
 		if (!chapter || !course) throw new Error("Chapter or course not found");
 
 		let muxData = null;
 		let attachments: Attachment[] = [];
 		let nextChapter: Chapter | null = null;
 
-		// if (purchase) {
+		if (purchase) {
 			attachments = await db.attachment.findMany({
 				where: {
 					courseId,
 				},
 			});
-		// }
-
+		}
 
 		if (chapter.isFree || purchase) {
 			muxData = await db.muxData.findFirst({
