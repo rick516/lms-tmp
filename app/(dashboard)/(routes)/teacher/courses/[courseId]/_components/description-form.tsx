@@ -1,17 +1,18 @@
 "use client";
-import * as z from "zod";
-import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormMessage, FormDescription } from "@/components/ui/form";
+import { Preview } from "@/components/preview";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
-import { useState } from "react";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Course } from "@prisma/client";
+import axios from "axios";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { Textarea } from "@/components/ui/textarea";
-import { Course } from "@prisma/client";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
 interface DescriptionFormProps {
 	initialData: Course;
@@ -71,7 +72,11 @@ export const DescriptionForm = ({
 					"text-sm mt-2",
 					!initialData.description && "text-slate-500 italic"
 				)}>
-					{initialData.description || "No description provided"}
+					{initialData.description ? (
+						<Preview value={initialData.description} />
+					) : (
+						"No description provided"
+					)}
 				</p>
 			)}
 			{isEditing && (

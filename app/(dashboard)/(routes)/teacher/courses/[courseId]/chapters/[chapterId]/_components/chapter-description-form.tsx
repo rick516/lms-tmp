@@ -1,18 +1,18 @@
 "use client";
-import * as z from "zod";
-import axios from "axios";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { Form, FormControl, FormField, FormItem, FormMessage, FormDescription } from "@/components/ui/form";
+import { Preview } from "@/components/preview";
+import { RichEditor } from "@/components/rich-editor";
 import { Button } from "@/components/ui/button";
-import toast from "react-hot-toast";
-import { useState } from "react";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Chapter } from "@prisma/client";
+import axios from "axios";
 import { Pencil } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { Chapter } from "@prisma/client";
-import { Preview } from "@/components/preview";
-import { Editor } from "@/components/editor";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import * as z from "zod";
 
 interface ChapterDescriptionFormProps {
 	initialData: Chapter;
@@ -91,8 +91,9 @@ export const ChapterDescriptionForm = ({
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Editor
-											{...field}
+										<RichEditor
+											value={form.watch("description")}
+											onChange={(value) => form.setValue("description", value)}
 										/>
 									</FormControl>
 									<FormDescription>

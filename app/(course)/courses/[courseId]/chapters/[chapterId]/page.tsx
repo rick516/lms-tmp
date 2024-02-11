@@ -33,7 +33,7 @@ const ChapterIdPage = async ({
 		chapterId: params.chapterId,
 	});
 
-	if (!chapter || !course.price) return redirect("/");
+	if (!chapter || !chapter.description || !course.price) return redirect("/");
 	if (!muxData) return redirect("/");
 
 	const isLocked = !chapter.isFree && !purchase;
@@ -81,7 +81,7 @@ const ChapterIdPage = async ({
 					</div>
 					<Separator />
 					<div>
-						<Preview value={chapter.description || "description is none."	}/>
+						<Preview value={chapter.description} />
 					</div>
 					{!!attachments.length && (
 						<>
