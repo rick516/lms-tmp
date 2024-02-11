@@ -90,7 +90,7 @@ const ChapterIdPage = async ({
 								{attachments.map((attachment) => (
 									<div 
 										key={attachment.id}
-										className="rounded-md bg-sky-100 border-sky-200 border text-sky-700 m-1 p-2 inline-flex items-center"
+										className="rounded-md bg-sky-100 border-sky-200 border text-sky-700 m-1 p-1 inline-flex items-center"
 									>
 										<a
 											href={attachment.url}
