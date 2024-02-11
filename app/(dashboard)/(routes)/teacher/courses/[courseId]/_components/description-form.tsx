@@ -1,8 +1,15 @@
 "use client";
 import { Preview } from "@/components/preview";
+import { RichEditor } from "@/components/rich-editor";
 import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Textarea } from "@/components/ui/textarea";
+import {
+	Form,
+	FormControl,
+	FormDescription,
+	FormField,
+	FormItem,
+	FormMessage,
+} from "@/components/ui/form";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
@@ -20,23 +27,24 @@ interface DescriptionFormProps {
 }
 
 const formSchema = z.object({
-	description: z.string().min(1, { message: "description is required" })
+	description: z.string().min(1, { message: "description is required" }),
 });
 
 export const DescriptionForm = ({
-	initialData, courseId
+	initialData,
+	courseId,
 }: DescriptionFormProps) => {
-	const router = useRouter()
+	const router = useRouter();
 	const [isEditing, setIsEditing] = useState(false);
-	
 
 	const toggleEdit = () => setIsEditing((current) => !current);
 
 	const form = useForm({
 		resolver: zodResolver(formSchema),
-		defaultValues: { 
-			description: initialData?.description || ""
-		}
+		defaultValues: {
+			description: initialData?.description || "",
+		},
+		mode: 'onChange',
 	});
 
 	const { isSubmitting, isValid } = form.formState;
@@ -68,10 +76,12 @@ export const DescriptionForm = ({
 				</Button>
 			</div>
 			{!isEditing && (
-				<p className={cn(
-					"text-sm mt-2",
-					!initialData.description && "text-slate-500 italic"
-				)}>
+				<p
+					className={cn(
+						"text-sm mt-2",
+						!initialData.description && "text-slate-500 italic",
+					)}
+				>
 					{initialData.description ? (
 						<Preview value={initialData.description} />
 					) : (
@@ -91,11 +101,12 @@ export const DescriptionForm = ({
 							render={({ field }) => (
 								<FormItem>
 									<FormControl>
-										<Textarea
-											placeholder="This course is about..."
-											disabled={isSubmitting}
-											{...field}
-											value={field.value || ""}
+										<RichEditor
+											value={field.value}
+											onChange={async (value) => {
+												form.setValue("description", value);
+												await form.trigger("description");
+											}}
 										/>
 									</FormControl>
 									<FormDescription>
@@ -127,4 +138,4 @@ export const DescriptionForm = ({
 			)}
 		</div>
 	);
-}
+};
