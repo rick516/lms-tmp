@@ -1,3 +1,4 @@
+import { Preview } from "@/components/preview";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -31,9 +32,11 @@ export const CourseLists = ({ courses = [] }: CourseListsProps) => {
 									<h3 className="font-semibold text-lg md:text-xl">
 										{course.title}
 									</h3>
-									<p className="text-sm text-gray-500 dark:text-gray-400">
-										{course.description}
-									</p>
+									{course.description && (
+										<p className="text-sm text-gray-500 dark:text-gray-400">
+											<Preview value={course.description}/>
+										</p>
+									)}
 									<div className="flex items-center gap-2">
 										<div className="flex items-center gap-0.5">
 											<StarIcon className="w-5 h-5 fill-primary" />
