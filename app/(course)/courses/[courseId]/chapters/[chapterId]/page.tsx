@@ -86,20 +86,22 @@ const ChapterIdPage = async ({
 					{!!attachments.length && (
 						<>
 							<Separator />
-							<div className="p-4">
+							<div>
 								{attachments.map((attachment) => (
-									<a 
-										href={attachment.url} 
-										target="_blank" 
-										rel="noreferrer" 
+									<div 
 										key={attachment.id}
-										className="flex items-center p-3 w-full bg-sky-200 border text-sky-700 rounded-md ghover:underline"
+										className="border rounded-md bg-sky-200 text-sky-700 m-2 p-2 inline-flex items-center"
 									>
-										<File size="sm" />
-										<p>
-											{attachment.name}
-										</p>
-									</a>
+										<a
+											href={attachment.url}
+											target="_blank"
+											rel="noreferrer"
+											className="flex items-center gap-x-2"
+										>
+											<File className="h-4 w-4"/>
+											<p>{attachment.name}</p>
+										</a>
+									</div>
 								))}
 							</div>
 						</>
