@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { Attachment, Chapter, MuxData } from "@prisma/client";
+import { Attachment, Chapter, MuxData, Purchase, UserProgress } from "@prisma/client";
 
 interface getChapterProps {
 	userId: string;
@@ -7,11 +7,21 @@ interface getChapterProps {
 	chapterId: string;
 }
 
+interface getChapterReturn {
+	chapter: Chapter | null;
+	course: { price: number } | null;
+	muxData: MuxData | null;
+	attachments: Attachment[];
+	nextChapter: Chapter | null;
+	userProgress: UserProgress | null;
+	purchase: Purchase | null;
+}
+
 export const getChapter = async ({
 	userId,
 	courseId,
 	chapterId,
-}: getChapterProps) => {
+}: getChapterProps): Promise<getChapterReturn> => {
 	try {
 		const purchase = await db.purchase.findUnique({
 			where: {
@@ -28,9 +38,10 @@ export const getChapter = async ({
 				isPublished: true,
 			},
 			select: {
-				price: true,
+				price: true
+				
 			},
-		});
+		}) as { price: number };
 
 		const chapter = await db.chapter.findUnique({
 			where: {
@@ -38,9 +49,6 @@ export const getChapter = async ({
 				isPublished: true,
 			},
 		});
-
-		console.log("chapter id");
-		console.log(chapterId);
 
 		if (!chapter || !course) throw new Error("Chapter or course not found");
 
@@ -57,7 +65,7 @@ export const getChapter = async ({
 		}
 
 		if (chapter.isFree || purchase) {
-			muxData = await db.muxData.findFirst({
+			muxData = await db.muxData.findUnique({
 				where: {
 					chapterId: chapterId,
 				},
@@ -87,23 +95,24 @@ export const getChapter = async ({
 		});
 
 		return {
-			course,
 			chapter,
-			nextChapter,
-			attachments,
-			purchase,
-			userProgress,
+			course,
 			muxData,
+			attachments,
+			nextChapter,
+			userProgress,
+			purchase,
 		};
 	} catch (error) {
 		console.log("[GET_CHAPTER]", error);
 		return {
-			course: null,
-			chapter: null,
-			nextChapter: null,
-			attachments: [],
-			purchase: null,
-			muxData: null,
+      		chapter: null,
+      		course: null,
+      		muxData: null,
+      		attachments: [],
+      		nextChapter: null,
+      		userProgress: null,
+      		purchase: null,
 		};
 	}
 };

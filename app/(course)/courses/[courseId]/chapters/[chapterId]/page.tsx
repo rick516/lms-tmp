@@ -18,11 +18,6 @@ const ChapterIdPage = async ({
 }) => {
 	const { userId } = auth();
 	if (!userId) return redirect("/");
-	const courseId = params.courseId;
-	const chapterId = params.chapterId;
-
-	console.log("courseId in page:", courseId);
-	console.log("chapterId in page:", chapterId);
 
 	const {
 		course,
@@ -34,14 +29,11 @@ const ChapterIdPage = async ({
 		muxData,
 	} = await getChapter({
 		userId,
-		courseId: courseId,
-		chapterId: chapterId,
+		courseId: params.courseId,
+		chapterId: params.chapterId,
 	});
 
-	console.log("chapter id page params:", params);
-
-	if (!chapter || !chapter.description || !course.price) return redirect("/");
-	if (!muxData) return redirect("/");
+	if (!course || !chapter) return redirect("/");
 
 	const isLocked = !chapter.isFree && !purchase;
 	const isCompletedOnEnd = !!purchase && !userProgress?.isCompleted;
@@ -63,7 +55,7 @@ const ChapterIdPage = async ({
 			<div className="flex flex-col max-w-4xl mx-auto pb-20">
 				<div className="p-4">
 					<VideoPlayer
-						chapterId={chapter.id}
+						chapterId={params.chapterId}
 						playbackId={muxData?.playbackId || ""}
 						courseId={params.courseId}
 						nextChapterId={nextChapter?.id}
@@ -81,14 +73,14 @@ const ChapterIdPage = async ({
 							<div>course progress</div>
 						) : (
 							<CourseEnrollButton
-								price={course.price}
+								price={course.price || 0}
 								courseId={params.courseId}
 							/>	
 						)}
 					</div>
 					<Separator />
 					<div>
-						<Preview value={chapter.description} />
+						<Preview value={chapter.description || ""} />
 					</div>
 					{!!attachments.length && (
 						<>

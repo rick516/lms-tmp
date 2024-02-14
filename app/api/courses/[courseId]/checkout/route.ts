@@ -59,7 +59,7 @@ export async function POST(
 
     if (!stripeCustomer) {
       const customer = await stripe.customers.create({
-        email: user.emailAddresses?.[0]?.emailAddress,
+        email: user.emailAddresses[0].emailAddress,
       });
 
       stripeCustomer = await db.stripeCustomer.create({

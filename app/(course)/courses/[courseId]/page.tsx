@@ -1,5 +1,4 @@
 import { db } from "@/lib/db";
-import { Course } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 const CourseIdPage = async ({
@@ -28,7 +27,7 @@ const CourseIdPage = async ({
 
 	if (!course) return redirect("/");
 
-	return redirect(`/courses/${course.id}/chapters/${course.chapters[0].id}`);
+	return redirect(`/courses/${course.id}/chapters/${course.chapters[0]?.id}`);
 };
 
 export default CourseIdPage;

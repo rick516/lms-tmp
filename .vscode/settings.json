@@ -17,5 +17,5 @@
     "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit"
   },
-  "nuxt.isNuxtApp": false,
+  "nuxt.isNuxtApp": false
 }
