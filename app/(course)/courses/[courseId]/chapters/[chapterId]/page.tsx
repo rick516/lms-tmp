@@ -70,7 +70,9 @@ const ChapterIdPage = async ({
 							{chapter.title}
 						</h2>
 						{purchase ? (
-							<div>course progress</div>
+							<div>
+								{userProgress?.isCompleted ? "Completed" : "Not Completed"}
+							</div>
 						) : (
 							<CourseEnrollButton
 								price={course.price || 0}
