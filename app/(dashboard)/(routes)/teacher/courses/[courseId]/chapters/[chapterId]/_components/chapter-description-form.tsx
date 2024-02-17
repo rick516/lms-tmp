@@ -69,11 +69,13 @@ export const ChapterDescriptionForm = ({
 				</Button>
 			</div>
 			{!isEditing && (
-				<div className={cn(
-					"text-sm mt-2",
-					!initialData.description && "text-slate-500 italic"
-				)}>
-					{!initialData.description || "" && "No description provided"}
+				<div
+					className={cn(
+						"text-sm mt-2",
+						!initialData.description && "text-slate-500 italic",
+					)}
+				>
+					{!initialData.description || ("" && "No description provided")}
 					{initialData.description && (
 						<Preview value={initialData.description} />
 					)}
@@ -92,8 +94,11 @@ export const ChapterDescriptionForm = ({
 								<FormItem>
 									<FormControl>
 										<RichEditor
-											value={form.watch("description")}
-											onChange={(value) => form.setValue("description", value)}
+											value={field.value}
+											onChange={async (value) => {
+												form.setValue("description", value);
+												await form.trigger("description");
+											}}
 										/>
 									</FormControl>
 									<FormDescription>
