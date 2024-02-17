@@ -39,6 +39,16 @@ DATABASE_URL={planetscaleのダッシュボードで取得}
 - アカウント登録を行い、アプリを作成して環境変数をセットする
 - [公式ドキュメント](https://docs.uploadthing.com/getting-started/appdir#setting-up-your-environment)を参照
 
+# Stripeの開発環境におけるセットアップ
+- Stripe CLIをインストール
+	- [Stripe CLIのインストール](https://stripe.com/docs/stripe-cli)
+- Stripe CLIで実行してログインする
+  - `stripe login`
+- webhookにイベントを転送
+  - `stripe listen --forward-to localhost:3000/webhook`
+* Prodで公開する場合はダッシュボードからエンドポイントを作成する
+
+
 # Prismaの使い方
 
 ## テーブルの作成

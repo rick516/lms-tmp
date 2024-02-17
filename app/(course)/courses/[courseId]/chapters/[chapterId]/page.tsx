@@ -1,11 +1,13 @@
 import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
+import { CourseProgress } from "@/components/course-progress";
 import { Preview } from "@/components/preview";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
-import { File } from "lucide-react"
+import { File } from "lucide-react";
 import { redirect } from "next/navigation";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
+import { CourseProgressButton } from "./_components/course-progress-button";
 import { VideoPlayer } from "./_components/video-player";
 
 const ChapterIdPage = async ({
@@ -66,18 +68,19 @@ const ChapterIdPage = async ({
 				</div>
 				<div>
 					<div className="flex items-center justify-between md:flex-row flex-col p-4">
-						<h2 className="text-2xl font-semibold mb-2">
-							{chapter.title}
-						</h2>
+						<h2 className="text-2xl font-semibold mb-2">{chapter.title}</h2>
 						{purchase ? (
-							<div>
-								{userProgress?.isCompleted ? "Completed" : "Not Completed"}
-							</div>
+							<CourseProgressButton
+								chapterId={params.chapterId}
+								courseId={params.courseId}
+								nextChapterId={nextChapter?.id}
+								isCompleted={!!userProgress?.isCompleted}
+							/>
 						) : (
 							<CourseEnrollButton
 								price={course.price || 0}
 								courseId={params.courseId}
-							/>	
+							/>
 						)}
 					</div>
 					<Separator />
@@ -89,7 +92,7 @@ const ChapterIdPage = async ({
 							<Separator />
 							<div>
 								{attachments.map((attachment) => (
-									<div 
+									<div
 										key={attachment.id}
 										className="rounded-md bg-sky-100 border-sky-200 border text-sky-700 m-1 p-1 inline-flex items-center"
 									>
@@ -99,7 +102,7 @@ const ChapterIdPage = async ({
 											rel="noreferrer"
 											className="flex items-center gap-x-2"
 										>
-											<File className="h-4 w-4"/>
+											<File className="h-4 w-4" />
 											<p>{attachment.name}</p>
 										</a>
 									</div>
