@@ -1,11 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { CheckCircle, XCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { toast } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 interface CourseProgressButtonProps {
 	chapterId: string;
@@ -22,15 +24,27 @@ export const CourseProgressButton = ({
 }: CourseProgressButtonProps) => {
 	const Icon = isCompleted ? XCircle : CheckCircle;
 
+	const router = useRouter();
+	const confetti = useConfettiStore();
 	const [isLoading, setIsLoading] = useState(false);
 
-	const handleProgress = async () => {
+	const onClick = async () => {
 		try {
 			setIsLoading(true);
-			// const response = await axios.post(`api/courses/${courseId}/chapters/${chapterId}/progress`);
+			await axios.post(`api/courses/${courseId}/chapters/${chapterId}/progress`, {
+				isCompleted: !isCompleted,
+			});
+
+			if (!isCompleted && !nextChapterId) {
+				confetti.onOpen();
+			}
+
+			if (!isCompleted && nextChapterId) {
+				router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+			}
+
 			toast.success("Chapter marked as completed");
 		} catch {
-			setIsLoading(true);
 			toast.error("Something went wrong");
 		} finally {
 			setIsLoading(false);
@@ -39,10 +53,11 @@ export const CourseProgressButton = ({
 
 	return (
 		<Button
+			type="button"
 			variant={!isCompleted ? "secondary" : "outline"}
 			size="sm"
 			disabled={isCompleted || isLoading}
-			onClick={handleProgress}
+			onClick={onClick}
 		>
 			{!isCompleted ? "Mark as completed" : "Completed"}
 			<Icon className="h-4 w-4 ml-2" />
