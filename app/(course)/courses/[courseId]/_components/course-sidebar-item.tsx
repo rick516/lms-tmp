@@ -1,5 +1,4 @@
 "use client";
-import { isAscii } from "buffer";
 import { IconBadge } from "@/components/icon-badge";
 import { cn } from "@/lib/utils";
 import { CheckCircle, Lock, PlayCircle } from "lucide-react";
@@ -28,7 +27,9 @@ export const CourseSidebarItem = ({
 	const isActive = pathname?.includes(id);
 
 	const onClick = () => {
-		router.push(`/courses/${courseId}/chapters/${id}`);
+		if (!isLocked) {
+			router.push(`/courses/${courseId}/chapters/${id}`);
+		}
 	};
 
 	return (
@@ -42,6 +43,7 @@ export const CourseSidebarItem = ({
 				isCompleted && isActive && "bg-emerald-200/20",
 			)}
 			onClick={onClick}
+			disabled={isLocked}
 		>
 			<div className="flex items-center gap-x-2 py-4">
 				<Icon

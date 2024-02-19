@@ -144,7 +144,7 @@ export async function PATCH(
 				data: {
 					assetId: asset.id,
 					chapterId: chapterId,
-					playbackId: asset.playback_ids?.[0]?.id,
+					playbackId: asset.playback_ids?.[0]?.id as string,
 				},
 			});
 		}

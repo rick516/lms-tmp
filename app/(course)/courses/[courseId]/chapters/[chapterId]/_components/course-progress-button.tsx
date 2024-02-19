@@ -2,11 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
-import { cn } from "@/lib/utils";
 import axios from "axios";
 import { CheckCircle, XCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
 interface CourseProgressButtonProps {
@@ -20,20 +19,26 @@ export const CourseProgressButton = ({
 	chapterId,
 	courseId,
 	nextChapterId,
-	isCompleted,
+	isCompleted: initialIsCompleted,
 }: CourseProgressButtonProps) => {
-	const Icon = isCompleted ? XCircle : CheckCircle;
+	const Icon = initialIsCompleted ? XCircle : CheckCircle;
 
 	const router = useRouter();
 	const confetti = useConfettiStore();
 	const [isLoading, setIsLoading] = useState(false);
+	const [isCompleted, setIsCompleted] = useState(initialIsCompleted);
+
+	useEffect(() => {
+		setIsCompleted(initialIsCompleted);
+	}, [initialIsCompleted]);
 
 	const onClick = async () => {
 		try {
 			setIsLoading(true);
-			await axios.post(`api/courses/${courseId}/chapters/${chapterId}/progress`, {
+			const response = await axios.put(`/api/courses/${courseId}/chapters/${chapterId}/progress`, {
 				isCompleted: !isCompleted,
 			});
+			await setIsCompleted(response.data.isCompleted);
 
 			if (!isCompleted && !nextChapterId) {
 				confetti.onOpen();
@@ -56,7 +61,7 @@ export const CourseProgressButton = ({
 			type="button"
 			variant={!isCompleted ? "secondary" : "outline"}
 			size="sm"
-			disabled={isCompleted || isLoading}
+			disabled={isLoading}
 			onClick={onClick}
 		>
 			{!isCompleted ? "Mark as completed" : "Completed"}
