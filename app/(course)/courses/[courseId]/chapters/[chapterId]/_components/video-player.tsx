@@ -1,11 +1,12 @@
 "use client";
+
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { cn } from "@/lib/utils";
 import MuxPlayer from "@mux/mux-player-react";
 import axios from "axios";
 import { Loader2, Lock } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-hot-toast";
 
 interface VideoPlayerProps {
@@ -34,7 +35,7 @@ export const VideoPlayer = ({
 	const onEnd = async () => {
 		try {
 			if (isCompletedOnEnd) {
-				await axios.post(
+				await axios.put(
 					`/api/courses/${courseId}/chapters/${chapterId}/progress`,
 					{
 						isCompleted: true,
@@ -44,10 +45,10 @@ export const VideoPlayer = ({
 				if (!nextChapterId) confetti.onOpen();
 
 				toast.success("Progress Updated");
-				router.refresh();
+				await router.refresh();
 
 				if (nextChapterId) {
-					router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+					await router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
 				};
 			}
 		} catch {

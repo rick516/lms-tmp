@@ -33,9 +33,9 @@ export const CourseLists = ({ courses = [] }: CourseListsProps) => {
 										{course.title}
 									</h3>
 									{course.description && (
-										<p className="text-sm text-gray-500 dark:text-gray-400">
+										<div className="text-sm text-gray-500 dark:text-gray-400">
 											<Preview value={course.description}/>
-										</p>
+										</div>
 									)}
 									<div className="flex items-center gap-2">
 										<div className="flex items-center gap-0.5">

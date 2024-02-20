@@ -1,6 +1,6 @@
 import { getChapter } from "@/actions/get-chapter";
 import { Banner } from "@/components/banner";
-import { CourseProgress } from "@/components/course-progress";
+// import { CourseProgress } from "@/components/course-progress";
 import { Preview } from "@/components/preview";
 import { Separator } from "@/components/ui/separator";
 import { auth } from "@clerk/nextjs";
@@ -35,10 +35,13 @@ const ChapterIdPage = async ({
 		chapterId: params.chapterId,
 	});
 
-	if (!course || !chapter || !muxData || !muxData.playbackId) return redirect("/");
+	if (!course || !chapter || !muxData || !muxData.playbackId) {
+		return redirect("/");
+	}
 
 	const isLocked = !chapter.isFree && !purchase;
-	const isCompletedOnEnd = !!purchase && !userProgress?.isCompleted;
+	const isCompletedOnEnd =
+		!!purchase && (!!userProgress?.isCompleted as boolean);
 
 	return (
 		<div>
@@ -75,7 +78,7 @@ const ChapterIdPage = async ({
 								chapterId={params.chapterId}
 								courseId={params.courseId}
 								nextChapterId={nextChapter?.id}
-								isCompleted={!!userProgress?.isCompleted}
+								isCompleted={isCompletedOnEnd}
 							/>
 						) : (
 							<CourseEnrollButton

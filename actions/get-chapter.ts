@@ -21,7 +21,7 @@ export const getChapter = async ({
 	userId,
 	courseId,
 	chapterId,
-}: getChapterProps): Promise<getChapterReturn> => {
+}: getChapterProps) => {
 	try {
 		const purchase = await db.purchase.findUnique({
 			where: {
@@ -71,6 +71,8 @@ export const getChapter = async ({
 				},
 			});
 
+			console.log(`muxData: ${chapterId}`, muxData);
+
 			nextChapter = await db.chapter.findFirst({
 				where: {
 					courseId: courseId,
@@ -83,6 +85,8 @@ export const getChapter = async ({
 					position: "asc",
 				},
 			});
+
+			console.log("nextChapter", nextChapter);
 		}
 
 		const userProgress = await db.userProgress.findUnique({
@@ -102,7 +106,7 @@ export const getChapter = async ({
 			nextChapter,
 			userProgress,
 			purchase,
-		};
+		} as getChapterReturn;
 	} catch (error) {
 		console.log("[GET_CHAPTER]", error);
 		return {
